@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TicketsHistory.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SearchPattern" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(branch\s'\S*\d+-\S*')|(proc-\d+)</Value>
+    </Setting>
+    <Setting Name="OutputFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://oneinc.atlassian.net/browse/PROC-</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
