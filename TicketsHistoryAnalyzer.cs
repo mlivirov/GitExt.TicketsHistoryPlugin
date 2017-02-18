@@ -19,6 +19,8 @@ namespace TicketsHistoryPlugin
 
         public event Action ScanStarted;
 
+        public event Action<Exception> ErrorOccured;
+
         public event Action<IEnumerable<string>> ScanFinished;
 
         public bool IsActive { get; private set; }
@@ -36,7 +38,6 @@ namespace TicketsHistoryPlugin
                 lastCommitHash);
 
             var revListCommandResult = _gitModule.RunGitCmd(revListCommand);
-
             return revListCommandResult.SplitLinesThenTrim().ToList();
         }
 
@@ -52,7 +53,14 @@ namespace TicketsHistoryPlugin
             {
                 var ticketNumbers = ScanForTicketNumbers(revisionsList, searchPattern, outputFormat, OnProgressChanged, cancellationToken);
                 OnScanFinished(ticketNumbers);
-            });
+            },
+            cancellationToken).ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    OnErrorOccured(task.Exception);
+                }
+            }, cancellationToken);
         }
 
         private List<string> ScanForTicketNumbers(
@@ -120,6 +128,17 @@ namespace TicketsHistoryPlugin
 
             scanFinished(result);
             IsActive = false;
+        }
+
+        protected void OnErrorOccured(Exception exception)
+        {
+            var errorOccured = ErrorOccured;
+            if (errorOccured == null)
+            {
+                return;
+            }
+
+            errorOccured(exception);
         }
     }
 }

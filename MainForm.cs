@@ -31,6 +31,7 @@ namespace TicketsHistoryPlugin
             _analyzier = new TicketsHistoryAnalyzer(_gitUiCommands.GitModule);
             _analyzier.ScanFinished += OnAnalyzerScanFinished;
             _analyzier.ProgressChanged += OnAnalyzerProgressChanged;
+            _analyzier.ErrorOccured += OnErrorOccured;
             
             _searchPattern.Text = Properties.Settings.Default.SearchPattern;
             _outputFormat.Text = Properties.Settings.Default.OutputFormat;
@@ -132,6 +133,18 @@ namespace TicketsHistoryPlugin
             {
                 _progressBar.Value = (int)(((double)current / total) * 100);
             });
+        }
+
+        private void OnErrorOccured(Exception exception)
+        {
+            var text = "An error occured!";
+
+            if (exception != null)
+            {
+                text += "\n" + exception.Message;
+            }
+
+            MessageBox.Show(this, text, @"Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
