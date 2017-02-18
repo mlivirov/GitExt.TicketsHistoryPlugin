@@ -4,7 +4,7 @@
 
 This plugin was built to help to analyse a scope of changes in between two revisions. It will perfectly work for projects and teams which use JIRA/REDMINE/GITHUB kind system for project management and have the rule to track a ticket number in the commits' messages.
 
-![alt screenshot](https://ipfs.pics/ipfs/QmfH4W1N3YcddHt9xFRWXkvw9diSdk43fxB1crAiQKiu6E)
+![alt screenshot](https://github.com/phen89/GitExt.TicketsHistoryPlugin/raw/master/docs/screenshot.png)
 
 ##How does it work? 
 
